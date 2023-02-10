@@ -70,3 +70,38 @@ struct RabinKarp { // Rabin Karp
         return ((a[0] << 32) + a[1]);
     }
 };
+/*
+	// returns the hash of (s[l, r] repeated m times)
+	array<ll, 2> extendedHash(const int l, const int r, const int m){
+		auto res = query(l, r);
+		int len = (r - l + 1);
+		// 1 + p^len + p ^ 2len + ... + p (m - 1) len
+		// (p ^(len)(m + 1) - 1 ) / ( p ^ len - 1)
+		for(int z = 0; z < modSz; ++z)
+		{
+			ll plen = pPow[len][z];
+			res[z] *= powe(plen, m, mod[z]);
+			res[z] %= mod[z];
+			res[z] *= modinv(plen - 1, mod[z]);
+			res[z] %= mod[z];
+			if (res[z] < 0)
+				res[z] += mod[z];
+		}
+		return res;
+	}
+	// returns the hash from l to r without index x, i.e. the string s[l ... x - 1] + s[x + 1 ... r]
+	array<ll, 2> query_minus(const int l, const int r, const int x) {
+		array<ll, 2> res = {0, 0};
+		for (int z = 0; z < modSz; ++z) {
+			if(x >= l && x <= r){
+				ll left = (h[x][z] - h[l][z] * pPow[x - l][z]) % mod[z];
+				ll right = (h[r + 1][z] - h[x + 1][z] * pPow[r - x][z]) % mod[z];
+				res[z] = (right + left * pPow[r - x][z]) % mod[z];
+			}
+			else res[z] = (h[r + 1][z] - h[l][z] * pPow[r - l + 1][z]) % mod[z];
+			if (res[z] < 0)
+				res[z] += mod[z];
+		}
+		return res;
+	}
+*/
