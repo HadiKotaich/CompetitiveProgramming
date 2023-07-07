@@ -1,0 +1,1 @@
+XOR (exclusive OR) has the following property: min(x⊕y,y⊕z)<x⊕z for all non-negative integers x,y,z (x<y<z).
